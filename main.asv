@@ -1,0 +1,7 @@
+clear; clc; close all;
+
+m = 0.05; % kg
+c_d = 0.6;
+[rho,~,~,~,~,~] = stdatmo(1655);
+
+p_0 = [0, 0, 0]

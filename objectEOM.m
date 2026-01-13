@@ -1,0 +1,1 @@
+function xdot = objectEOM(t,x,rho,Cd,A,m,g,wind_vel)
