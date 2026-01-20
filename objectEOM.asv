@@ -8,9 +8,7 @@ function xdot = objectEOM(t,x,rho,Cd,A,m,g,wind_vel)
 %         g = acceleration of gravity
 %         wind_vel = vector containing 3d velocity of wind
 % Outputs: xdot = vector containing 3d velocities and accelerations
-% Methodology: the velocity for xdot can just be found by using difference between the given
-% velocity in x and the wind velocity, and the acceleration can be calculated by the formula of
-% drag and the acceleration of gravity
+% Methodology: the velocity for xdot can just be found by usi
 
     % unpacking position and velocity
     pE_E = x(1:3);

@@ -74,8 +74,7 @@ exportgraphics(figure(1), 'default.png', 'Resolution', 300);
 function [position, isterminal, direction] = hitGroundEvent(t, x)
 %inputs: t = time used to track when event x occurs
 %        x = position matrix x being observed for when event occurs (in our
-%            case the object's z position at 0
-% methodology: 
+%            case 
   position = x(3); % The value that we want to be zero
   isterminal = 1;  % Halt integration 
   direction = 1;   % only detect if going downwards (ie its okay if were going up from below height h to above height h)
