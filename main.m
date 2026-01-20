@@ -17,7 +17,7 @@ A = pi*(diameter/2)^2; % cross-sectional area (m^2)
 h = 1655; %altitude (m)
 % 
 % rho = stdatmo(h); % density (kg/m^3)
-h_vec = [h - 1600, h - 800, h, h + 800, h + 1600]' ; %varying altitude (m)
+h_vec = [0, 1600, 3200, 4800, 6400]' ; %varying altitude (m)
 rho = stdatmo(h_vec)' ;
 
 %time
@@ -56,7 +56,7 @@ for h_idx = 1:size(h_vec,1)
 end
 xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)'); 
 grid("on")
-title('Trajectory of Sphere in Air at 1655m Altitude')
+title('Trajectory of Sphere in Air at Varying Altitudes')
 % legend('w = 0i m/s', 'w = 5i m/s', 'w = 10i m/s', 'w = 15i m/s', 'w = 20i m/s');
 % exportgraphics(figure(1), 'vary_wind_x.png', 'Resolution', 300);
 
@@ -68,7 +68,7 @@ title('Trajectory of Sphere in Air at 1655m Altitude')
 
 % legend('w = 0k m/s', 'w = -5k m/s', 'w = -10k m/s', 'w = -15k m/s', 'w = -20k m/s');
 % exportgraphics(figure(1), 'vary_wind_z.png', 'Resolution', 300);
-legend('w = 0k m/s', 'w = 10k m/s', 'w = -10k m/s', 'w = -15k m/s', 'w = -20k m/s');
+legend('Altitude = 0 m', 'Altitude = 1600 m', 'Altitude = 3200 m', 'Altitude = 4800 m', 'Altitude = 6400 m');
 exportgraphics(figure(1), 'vary_altitude.png', 'Resolution', 300);
 %hit ground event
 function [position, isterminal, direction] = hitGroundEvent(t, x)
