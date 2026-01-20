@@ -1,5 +1,0 @@
-function xdot = objectEOM(t,x,rho,Cd,A,m,g,wind_vel)
-    % unpacking pos
-    pE_E = x(1);
-    v_E = x(2);
-    % v_net = v_E - wind_vel;
