@@ -23,5 +23,5 @@ function xdot = objectEOM(t,x,rho,Cd,A,m,g,wind_vel)
 
     a_drag = (-1/2 * rho * v_a * A * Cd / m .* v_E );
     a_E = a_drag + g_matrix;
-    xdot = [v_E; a_E];
+    xdot = [vE_E; a_E];
 end

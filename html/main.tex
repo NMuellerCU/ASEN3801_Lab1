@@ -1,3 +1,30 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item figure 1: Default case
+   \item figure 2: Wind sweep:
+   \item figure 3: Wind sweep with distance:
+   \item figure 4: Altitude change
+   \item figure 5: part f, vary initial speed and mass so that its constrained by kinetic energy
+\end{itemize}
+\begin{verbatim}
 % Contributors: Nathaniel Mueller
 % Course number: ASEN 3801
 % File name: main.m
@@ -14,10 +41,10 @@ set(groot, 'defaultTextFontSize', 16);
 m = 0.05; % kg
 Cd = 0.6; % coefficient of drag
 g = 9.81; % acceleration due to gravity (m/s^2)
-diameter = 0.02; % (m) 
+diameter = 0.02; % (m)
 A = pi*(diameter/2)^2; % cross-sectional area (m^2)
 h = 1655; %altitude (m)
-% 
+%
 rho = stdatmo(h); % density (kg/m^3)
 h_vec = [0, 1600, 3200, 4800, 6400]' ; %varying altitude (m)
 rho_vec = stdatmo(h_vec)' ;
@@ -37,7 +64,12 @@ T_r = 1e-8;
 opts = odeset('events', @hitGroundEvent, 'RelTol', T_r, 'AbsTol', T_a);
 %initial condions and velocities
 x0 = [p_0; v_0 ];
-%% figure 1: Default case
+\end{verbatim}
+
+
+\subsection*{figure 1: Default case}
+
+\begin{verbatim}
 wind_default = [0 0 0]' ; % default v = 0 wind
 
 figure(1); hold on;
@@ -45,13 +77,23 @@ figure(1); hold on;
 [t, x] = ode45(@(t,x) objectEOM(t,x,rho,Cd,A,m,g,wind_default), tspan, x0, opts);
 
 plot3(x(:,1), x(:,2), -x(:,3), 'LineWidth',1.5);
-xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)'); 
+xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
 grid("on")
 title('Default Trajectory of Sphere in Air with no Wind')
 exportgraphics(gcf, 'default.png', 'Resolution', 300);
 hold off;
+\end{verbatim}
 
-%% figure 2: Wind sweep:
+        \color{lightgray} \begin{verbatim}Warning: Exported image displays axes toolbar. To remove axes toolbar from
+image, export again. 
+\end{verbatim} \color{black}
+    
+\includegraphics [width=4in]{main_01.eps}
+
+
+\subsection*{figure 2: Wind sweep:}
+
+\begin{verbatim}
 %tested wind velocities, commented for later use
 wind_vel = [0 0 0; 5 0 0;10 0 0; 15 0 0;20 0 0]'; % x
 % wind_vel = [0 0 0; 0 5 0;0 10 0; 0 15 0;0 20 0]'; % y
@@ -66,7 +108,7 @@ for h_idx = 1:size(wind_vel,2)
     plot3(x(:,1), x(:,2), -x(:,3), 'LineWidth',1.5);
     labels(h_idx) = sprintf('$w = %.1f\\,i\\ \\mathrm{m/s},\\ \\frac{h}{v}=%.3f\\ \\frac{\\mathrm{m}}{\\mathrm{m/s}}$', wind_vel(1,h_idx), -x(end,1)/wind_vel(1,h_idx));
 end
-xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)'); 
+xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
 grid("on")
 legend(labels, 'Interpreter','latex', 'Location', 'best');
 title('Trajectory of Sphere in Air with Wind Shear in +X')
@@ -79,9 +121,20 @@ hold off;
 
 % legend('w = 0k m/s', 'w = -5k m/s', 'w = -10k m/s', 'w = -15k m/s', 'w = -20k m/s');
 % exportgraphics(figure(1), 'vary_wind_z.png', 'Resolution', 300);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}Warning: Exported image displays axes toolbar. To remove axes toolbar from
+image, export again. 
+\end{verbatim} \color{black}
+    
+\includegraphics [width=4in]{main_02.eps}
+
+\includegraphics [width=4in]{main_03.eps}
 
 
-%% figure 3: Wind sweep with distance:
+\subsection*{figure 3: Wind sweep with distance:}
+
+\begin{verbatim}
 %tested wind velocities, commented for later use
 wind_vel = [0 0 0; 5 0 0;10 0 0; 15 0 0;20 0 0]'; % x
 % wind_vel = [0 0 0; 0 5 0;0 10 0; 0 15 0;0 20 0]'; % y
@@ -98,7 +151,7 @@ for h_idx = 1:size(wind_vel,2)
     dist_affected = norm_dist/wind_vel(1,h_idx);
     labels(h_idx) = sprintf('$w = %.1f\\,i\\ \\mathrm{m/s},\\frac{d}{v}=%.3f\\ \\frac{\\mathrm{m}}{\\mathrm{m/s}}$', wind_vel(1,h_idx), dist_affected);
 end
-xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)'); 
+xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
 grid("on")
 legend(labels, 'Interpreter','latex', 'Location', 'best');
 title('Trajectory of Sphere in Air with Wind Shear in +X')
@@ -111,11 +164,16 @@ hold off;
 
 % legend('w = 0k m/s', 'w = -5k m/s', 'w = -10k m/s', 'w = -15k m/s', 'w = -20k m/s');
 % exportgraphics(figure(1), 'vary_wind_z.png', 'Resolution', 300);
+\end{verbatim}
+
+\includegraphics [width=4in]{main_04.eps}
+
+\includegraphics [width=4in]{main_05.eps}
 
 
+\subsection*{figure 4: Altitude change}
 
-%% figure 4: Altitude change
-
+\begin{verbatim}
 figure(4); hold on;
 for h_idx = 1:size(rho_vec,2)
     [t, x] = ode45(@(t,x) objectEOM(t,x,rho_vec(h_idx),Cd,A,m,g,wind_default), tspan, x0, opts);
@@ -124,19 +182,25 @@ for h_idx = 1:size(rho_vec,2)
     plot3(x(:,1), x(:,2), -x(:,3), 'LineWidth',1.5);
 
 end
-xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)'); 
+xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
 grid("on")
 legend('Altitude = 0 m', 'Altitude = 1600 m', 'Altitude = 3200 m', 'Altitude = 4800 m', 'Altitude = 6400 m');
 title('Trajectory of Sphere in Air with Varying Altitudes')
 exportgraphics(gcf, 'altChange.png', 'Resolution', 300);
 hold off;
+\end{verbatim}
+
+\includegraphics [width=4in]{main_06.eps}
+
+\includegraphics [width=4in]{main_07.eps}
 
 
+\subsection*{figure 5: part f, vary initial speed and mass so that its constrained by kinetic energy}
 
-%% figure 5: part f, vary initial speed and mass so that its constrained by kinetic energy
-% KE = 1/2mv^2 -> v = sqrt(2KE/m)
-% given m and KE, find v:
-% to find v direction:
+\begin{par}
+KE = 1/2mv\^{}2 -\ensuremath{>} v = sqrt(2KE/m) given m and KE, find v: to find v direction:
+\end{par} \vspace{1em}
+\begin{verbatim}
 m_vec = logspace(log10(0.001), log10(0.1), 20); % (kg)
 v_mag = norm(v_0); % (m/s) magnitude of the default velocity
 
@@ -161,7 +225,7 @@ for h_idx = 1:N
 
 end
 
-xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)'); 
+xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
 grid("on")
 legend([plots_pt5(1), plots_pt5(end)], {'m = 0.001 kg', 'm = 0.1 kg'})
 title('Trajectory of Sphere in Air with Constant Kinetic Energy (varying velocity and mass)')
@@ -171,7 +235,7 @@ hold off;
 figure(6)
 m_vec_g = m_vec .* 1000;
 plot(m_vec_g, final_distance_pt5);
-xlabel('m (g)'); ylabel('Distance (m)'); 
+xlabel('m (g)'); ylabel('Distance (m)');
 grid("on")
 title('Range Versus Mass of Sphere with Constant Kinetic Energy')
 exportgraphics(gcf, 'distance_vs_mass.png', 'Resolution', 300);
@@ -211,6 +275,22 @@ function [position, isterminal, direction] = hitGroundEvent(t, x)
 % methodology: just an event that tracks when we go up (down in our case
 % because our z axis is flipped) through 0
   position = x(3); % The value that we want to be zero
-  isterminal = 1;  % Halt integration 
+  isterminal = 1;  % Halt integration
   direction = 1;   % only detect if going downwards (ie its okay if were going up from below height h to above height h)
 end
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}Warning: Exported image displays axes toolbar. To remove axes toolbar from
+image, export again. 
+\end{verbatim} \color{black}
+    
+\includegraphics [width=4in]{main_08.eps}
+
+\includegraphics [width=4in]{main_09.eps}
+
+\includegraphics [width=4in]{main_10.eps}
+
+
+
+\end{document}
+
